@@ -1,0 +1,529 @@
+<div class="container my-5">
+    <!-- Payment Success Modal -->
+    <div class="modal fade show" 
+         [style.display]="showPaymentSuccess ? 'block' : 'none'"
+         [class.show]="showPaymentSuccess"
+         tabindex="-1" 
+         style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <!-- Success Animation -->
+                    <div class="success-animation mb-4">
+                        <div class="success-checkmark">
+                            <div class="check-icon">
+                                <span class="icon-line line-tip"></span>
+                                <span class="icon-line line-long"></span>
+                                <div class="icon-circle"></div>
+                                <div class="icon-fix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-success mb-3">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        Payment Successful!
+                    </h2>
+                    
+                    <p class="lead mb-4">Your bus ticket has been booked successfully</p>
+                    
+                    <!-- Booking Details -->
+                    <div class="booking-success-details bg-light p-4 rounded mb-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="mb-2">Booking ID</h6>
+                                <p class="fw-bold text-primary">{{generateBookingId()}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="mb-2">Transaction ID</h6>
+                                <p class="fw-bold">{{bookTicketObj.transactionId}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="mb-2">Bus</h6>
+                                <p>{{scheduleData.busName}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="mb-2">Total Amount</h6>
+                                <p class="fw-bold text-success fs-5">₹{{totalAmount}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="mb-2">Seats Booked</h6>
+                                <p>
+                                    <span *ngFor="let seat of selectedSeatArray; let last = last" 
+                                          class="badge bg-primary me-1">
+                                        {{seat.seatNo}}
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="mb-2">Payment Method</h6>
+                                <p>{{getSelectedPaymentMethod()?.label}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Passenger Details Section -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h6 class="mb-2">Passenger Details</h6>
+                            <div class="passenger-list text-start">
+                                @for (passenger of selectedSeatArray; track $index) {
+                                    <div class="passenger-item d-flex justify-content-between align-items-center p-2 border-bottom">
+                                        <div>
+                                            <strong>{{passenger.passengerName}}</strong>
+                                            <small class="text-muted ms-2">
+                                                ({{passenger.age}} years, {{passenger.gender | titlecase}})
+                                            </small>
+                                        </div>
+                                        <span class="badge bg-secondary">Seat {{passenger.seatNo}}</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <button class="btn btn-primary btn-lg me-md-2" (click)="downloadTicket()">
+                            <i class="bi bi-download me-2"></i>Download Ticket
+                        </button>
+                        <button class="btn btn-outline-primary btn-lg me-md-2" (click)="goToBookingHistory()">
+                            <i class="bi bi-list-ul me-2"></i>View Bookings
+                        </button>
+                        <button class="home-button" routerLink="/search">
+                           <i class="fa-solid fa-house"></i>
+                        </button>
+
+                        <button class="btn btn-outline-secondary btn-lg" (click)="bookAnotherTicket()">
+                            <i class="bi bi-plus-circle me-2"></i>Book Another
+                        </button>
+                    </div>
+                    
+                    <p class="text-muted mt-3 mb-0">
+                        <small>Redirecting to booking history in 5 seconds...</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Bus Details -->
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title mb-1">{{scheduleData.busName}}</h5>
+                            <p class="text-muted mb-0">
+                                <i class="bi bi-calendar3 me-2"></i>{{scheduleData.departureTime | date:'dd-MMM-yy'}} -- {{scheduleData.arrivalTime | date:'dd-MMM-yy'}}
+                                <span class="mx-2">•</span>
+                                <i class="bi bi-clock me-2"></i>{{scheduleData.departureTime | date:'hh:mm:ss'}} -- {{scheduleData.arrivalTime | date:'hh:mm:ss'}}
+                            </p>
+                        </div>
+                        <div class="text-end">
+                            <h6 class="mb-1">{{scheduleData.busName}}</h6>
+                            <p class="text-muted mb-0">Duration: 8h 30m</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seat Layout -->
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="card-title mb-0">Select Seats</h5>
+                        <div class="seat-legend">
+                            <span class="me-3"><i class="bi bi-square me-1" style="color: #f3f7f4;"></i>Available</span>
+                            <span class="me-3"><i class="bi bi-square-fill text-secondary me-1"></i>Booked</span>
+                            <span><i class="bi bi-square-fill text-primary me-1"></i>Selected</span>
+                        </div>
+                    </div>
+
+                    <div class="bus-layout">
+                        <!-- Driver's Area -->
+                        <div class="driver-area mb-4">
+                            <div class="steering">
+                                <i class="bi bi-truck-front-fill fs-1"></i>
+                            </div>
+                            <small class="text-muted d-block mt-2">Front</small>
+                        </div>
+
+                        <div class="seat-grid">
+                          <div class="row">
+                            @for (item of seatNoList; track $index) {
+                                <div class="col-3">
+                                    @if (!checkIfBooked(item)) {
+                                        <button class="seat available" 
+                                               [ngClass]="checkIfSeatIsSelected(item) ? 'selected' : ''"
+                                               (click)="onSelect(item)"
+                                               [disabled]="isBookingInProgress">
+                                            {{item}}
+                                        </button>
+                                    } @else {
+                                        <button class="seat booked" disabled>{{item}}</button>
+                                    }
+                                </div>
+                            }
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Summary -->
+        <div class="col-lg-6">
+            <div class="card booking-summary">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Booking Summary</h5>
+
+                    <!-- Selected Seats -->
+                    <div class="selected-seats mb-4">
+                        <h6 class="mb-3">Selected Seats ({{selectedSeatArray.length}})</h6>
+                        <div id="selectedSeatsList" class="mb-3">
+                            @if (selectedSeatArray.length == 0) {
+                                <p class="text-muted mb-0">No seats selected</p>
+                            } @else {
+                                <div class="selected-seat-tags">
+                                    @for (item of selectedSeatArray; track $index) {
+                                        <span class="badge bg-primary me-2 mb-2">Seat {{item.seatNo}}</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Fare Details -->
+                    <div class="fare-details mb-4">
+                        <h6 class="mb-3">Fare Details</h6>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Base Fare ({{selectedSeatArray.length}} × ₹{{baseFarePerSeat}})</span>
+                            <span>₹{{baseFare}}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Tax ({{taxPercentage}}%)</span>
+                            <span>₹{{tax}}</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between fw-bold fs-5">
+                            <span>Total Amount</span>
+                            <span class="text-primary">₹{{totalAmount}}</span>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method Selection -->
+                    @if (selectedSeatArray.length > 0) {
+                        <div class="payment-method mb-4">
+                            <h6 class="mb-3">Payment Method</h6>
+                            <div class="row">
+                                @for (method of paymentMethods; track method.value) {
+                                    <div class="col-6 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" 
+                                                   type="radio" 
+                                                   [(ngModel)]="paymentMethod" 
+                                                   [value]="method.value"
+                                                   [id]="method.value"
+                                                   (change)="onPaymentMethodChange()"
+                                                   [disabled]="isBookingInProgress">
+                                            <label class="form-check-label" [for]="method.value">
+                                                <i class="{{method.icon}} me-2"></i>{{method.label}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Payment Forms -->
+                        <div class="payment-forms mb-4">
+                            <!-- UPI Payment Form -->
+                            @if (paymentMethod === 'upi') {
+                                <div class="payment-form border rounded p-3">
+                                    <h6 class="mb-3 text-primary">
+                                        <i class="bi bi-phone me-2"></i>UPI Payment Details
+                                    </h6>
+                                    
+                                    <!-- UPI ID Input -->
+                                    <div class="mb-3">
+                                        <label class="form-label">UPI ID *</label>
+                                        <input type="text" 
+                                               [(ngModel)]="upiPayment.upiId" 
+                                               class="form-control"
+                                               [class.is-invalid]="upiPayment.upiId && !isValidUpiId(upiPayment.upiId)"
+                                               placeholder="yourname@paytm, yourname@ybl"
+                                               [disabled]="isBookingInProgress">
+                                        <div class="form-text">Enter your UPI ID (e.g., 9876543210paytm)</div>
+                                        @if (upiPayment.upiId && !isValidUpiId(upiPayment.upiId)) {
+                                            <div class="invalid-feedback">Please enter a valid UPI ID</div>
+                                        }
+                                    </div>
+
+                                    <!-- Quick App Selection -->
+                                    <div class="mb-3">
+                                        <label class="form-label">Quick Pay with App</label>
+                                        <div class="row">
+                                            @for (app of upiApps; track app.value) {
+                                                <div class="col-6 mb-2">
+                                                    <button type="button" 
+                                                            class="btn btn-outline-primary w-100"
+                                                            [class.active]="upiPayment.selectedApp === app.value"
+                                                            (click)="upiPayment.selectedApp = app.value"
+                                                            [disabled]="isBookingInProgress">
+                                                        <i class="{{app.icon}} me-2"></i>{{app.label}}
+                                                    </button>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        You will be redirected to your UPI app to complete the payment
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Credit/Debit Card Form -->
+                            @if (paymentMethod === 'card') {
+                                <div class="payment-form border rounded p-3">
+                                    <h6 class="mb-3 text-primary">
+                                        <i class="bi bi-credit-card me-2"></i>Card Payment Details
+                                    </h6>
+                                    
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">Card Number *</label>
+                                            <input type="text" 
+                                                   [value]="cardPayment.cardNumber"
+                                                   (input)="formatCardNumber($event)"
+                                                   class="form-control"
+                                                   placeholder="1234 5678 9012 3456"
+                                                   maxlength="19"
+                                                   [disabled]="isBookingInProgress">
+                                        </div>
+                                        
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">Cardholder Name *</label>
+                                            <input type="text" 
+                                                   [(ngModel)]="cardPayment.cardholderName" 
+                                                   class="form-control"
+                                                   placeholder="Full name as on card"
+                                                   [disabled]="isBookingInProgress"
+                                                   style="text-transform: uppercase;">
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Expiry Date *</label>
+                                            <input type="text" 
+                                                   [value]="cardPayment.expiryDate"
+                                                   (input)="formatExpiryDate($event)"
+                                                   class="form-control"
+                                                   placeholder="MM/YY"
+                                                   maxlength="5"
+                                                   [disabled]="isBookingInProgress">
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">CVV *</label>
+                                            <input type="password" 
+                                                   [value]="cardPayment.cvv"
+                                                   (input)="restrictCvvInput($event)"
+                                                   class="form-control"
+                                                   placeholder="123"
+                                                   maxlength="4"
+                                                   [disabled]="isBookingInProgress">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" 
+                                               type="checkbox" 
+                                               [(ngModel)]="cardPayment.saveCard"
+                                               id="saveCard"
+                                               [disabled]="isBookingInProgress">
+                                        <label class="form-check-label" for="saveCard">
+                                            Save this card for future payments
+                                        </label>
+                                    </div>
+
+                                    <div class="alert alert-warning">
+                                        <i class="bi bi-shield-check me-2"></i>
+                                        Your card details are encrypted and secure. We do not store your CVV.
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Net Banking Form -->
+                            @if (paymentMethod === 'netbanking') {
+                                <div class="payment-form border rounded p-3">
+                                    <h6 class="mb-3 text-primary">
+                                        <i class="bi bi-bank me-2"></i>Net Banking Details
+                                    </h6>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Select Your Bank *</label>
+                                        <select [(ngModel)]="netBankingPayment.selectedBank" 
+                                                class="form-select"
+                                                [disabled]="isBookingInProgress">
+                                            <option value="">Choose your bank</option>
+                                            @for (bank of banks; track bank.value) {
+                                                <option [value]="bank.value">{{bank.label}}</option>
+                                            }
+                                        </select>
+                                    </div>
+
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        You will be redirected to your bank's login page to complete the payment
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Digital Wallet Form -->
+                            @if (paymentMethod === 'wallet') {
+                                <div class="payment-form border rounded p-3">
+                                    <h6 class="mb-3 text-primary">
+                                        <i class="bi bi-wallet2 me-2"></i>Digital Wallet Details
+                                    </h6>
+                                    
+                                    <div class="mb-3">
+                                        <label class="form-label">Select Wallet *</label>
+                                        <div class="row">
+                                            @for (wallet of wallets; track wallet.value) {
+                                                <div class="col-6 mb-2">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" 
+                                                               type="radio" 
+                                                               [(ngModel)]="walletPayment.selectedWallet" 
+                                                               [value]="wallet.value"
+                                                               [id]="wallet.value + 'Wallet'"
+                                                               [disabled]="isBookingInProgress">
+                                                        <label class="form-check-label" [for]="wallet.value + 'Wallet'">
+                                                            <i class="{{wallet.icon}} me-2"></i>{{wallet.label}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Mobile Number *</label>
+                                        <input type="tel" 
+                                               [value]="walletPayment.mobileNumber"
+                                               (input)="formatMobileNumber($event)"
+                                               class="form-control"
+                                               [class.is-invalid]="walletPayment.mobileNumber && walletPayment.mobileNumber.length !== 10"
+                                               placeholder="Enter 10-digit mobile number"
+                                               maxlength="10"
+                                               [disabled]="isBookingInProgress">
+                                        @if (walletPayment.mobileNumber && walletPayment.mobileNumber.length !== 10) {
+                                            <div class="invalid-feedback">Please enter a valid 10-digit mobile number</div>
+                                        }
+                                    </div>
+
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        OTP will be sent to your registered mobile number for verification
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    <!-- Passenger Details -->
+                    <div class="contact-details mb-4">
+                        @if (selectedSeatArray.length > 0) {
+                            <h6 class="mb-3">Passenger Details</h6>
+                            @for (item of selectedSeatArray; track $index) {
+                                <div class="passenger-form mb-4 p-3 border rounded">
+                                    <h6 class="mb-3 text-primary">Seat {{item.seatNo}} - Passenger {{$index + 1}}</h6>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Full Name *</label>
+                                            <input type="text" 
+                                                   [(ngModel)]="item.passengerName" 
+                                                   class="form-control" 
+                                                   placeholder="Enter full name"
+                                                   [disabled]="isBookingInProgress"
+                                                   required>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label class="form-label">Age *</label>
+                                            <input type="number" 
+                                                   [(ngModel)]="item.age" 
+                                                   class="form-control" 
+                                                   placeholder="Age"
+                                                   min="1" 
+                                                   max="120"
+                                                   [disabled]="isBookingInProgress"
+                                                   required>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label class="form-label">Gender *</label>
+                                            <div class="mt-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" 
+                                                           type="radio" 
+                                                           [(ngModel)]="item.gender" 
+                                                           [name]="'gender' + $index" 
+                                                           value="male"
+                                                           [id]="'male' + $index"
+                                                           [disabled]="isBookingInProgress">
+                                                    <label class="form-check-label" [for]="'male' + $index">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" 
+                                                           type="radio" 
+                                                           [(ngModel)]="item.gender" 
+                                                           [name]="'gender' + $index" 
+                                                           value="female"
+                                                           [id]="'female' + $index"
+                                                           [disabled]="isBookingInProgress">
+                                                    <label class="form-check-label" [for]="'female' + $index">Female</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <!-- Booking Button -->
+                    <button (click)="bookTicket()" 
+                            class="btn btn-primary w-100 btn-lg"
+                            [disabled]="!isBookingValid() || isBookingInProgress">
+                        
+                        @if (isBookingInProgress) {
+                            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                            Processing Payment...
+                        } @else if (selectedSeatArray.length > 0) {
+                            <i class="bi bi-credit-card me-2"></i>
+                            Pay ₹{{totalAmount}} & Book {{selectedSeatArray.length}} Ticket(s)
+                        } @else {
+                            <i class="bi bi-arrow-right me-2"></i>
+                            Select Seats to Continue
+                        }
+                    </button>
+                    
+                    @if (selectedSeatArray.length > 0 && !isBookingValid()) {
+                        <small class="text-danger mt-2 d-block">
+                            <i class="bi bi-exclamation-triangle me-1"></i>
+                            Please fill all passenger details and payment information to proceed
+                        </small>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

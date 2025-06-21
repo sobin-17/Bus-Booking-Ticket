@@ -1,0 +1,387 @@
+body {
+    background-color: #f5f8fa;
+    padding: 40px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .bus-card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-left: 5px solid #7c3aed; /* Violet gradient strip */
+  }
+
+  .bus-info h5 {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  .bus-info .tags {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 5px;
+    color: white;
+    background-color: #28a745;
+  }
+
+  .tag.blue {
+    background-color: #0d6efd;
+  }
+
+  .bus-meta {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .bus-meta div {
+    text-align: center;
+  }
+
+  .bus-meta i {
+    margin-right: 5px;
+  }
+
+  .bus-price {
+    text-align: right;
+  }
+
+  .bus-price .price {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .bus-price .best {
+    color: #28a745;
+    font-size: 0.9rem;
+  }
+
+  .btn-view {
+    background-color: #5b21b6;
+    color: white;
+    border-radius: 50%;
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: none;
+  }
+
+  .header-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .header-controls .btn-outline-primary {
+    margin-left: 10px;
+  }
+  /* search-result.component.css */
+.search-results-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.results-header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.results-count {
+  color: #666;
+  font-size: 14px;
+}
+
+.filter-sort-section {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.filters, .sort-options {
+  flex: 1;
+}
+
+.filters h3, .sort-options h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.filter-group {
+  margin-bottom: 15px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+}
+
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.price-range {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-range input {
+  flex: 1;
+}
+
+.price-range span {
+  color: #666;
+  font-size: 14px;
+}
+
+.clear-filters {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.clear-filters:hover {
+  background: #c82333;
+}
+
+.sort-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sort-buttons button {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.sort-buttons button:hover {
+  background: #f0f0f0;
+}
+
+.sort-buttons button.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.bus-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.bus-card {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+/* Each individual bus item */
+
+
+
+.bus-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.bus-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.bus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.bus-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.bus-type {
+  background: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rating-value {
+  background: #ffc107;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.rating-label {
+  color: #28a745;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.bus-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time-info {
+  display: flex;
+  gap: 40px;
+}
+
+.departure, .duration, .arrival {
+  text-align: center;
+}
+
+.departure label, .duration label, .arrival label {
+  display: block;
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.departure strong, .duration strong, .arrival strong {
+  font-size: 16px;
+  color: #333;
+}
+
+.price-booking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.price {
+  text-align: center;
+}
+
+.price-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: #007bff;
+}
+
+.price-label {
+  font-size: 12px;
+  color: #28a745;
+}
+
+.book-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  gap:20px;
+}
+
+.book-btn:hover {
+  background: #0056b3;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.no-results h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.no-results p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filter-sort-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .sort-buttons {
+    flex-direction: column;
+  }
+  
+  .bus-details {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .time-info {
+    gap: 20px;
+  }
+}

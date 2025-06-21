@@ -1,0 +1,356 @@
+<div class="container-fluid bg-light min-vh-100 py-5">
+    <div class="container">
+      <!-- Header Section -->
+      <div class="row justify-content-center mb-5">
+        <div class="col-lg-10 text-center">
+          <div class="card border-0 shadow-lg">
+            <div class="card-body p-5">
+              <i class="fa fa-graduation-cap display-1 text-primary mb-3"></i>
+              <h1 class="display-4 fw-bold text-primary">Learn About BusBooking</h1>
+              <p class="lead text-muted">Discover everything you need to know about our comprehensive bus booking platform</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Navigation Tabs -->
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-10">
+          <ul class="nav nav-pills nav-fill bg-white rounded-pill shadow p-2" id="learnTabs">
+            <li class="nav-item">
+              <a class="nav-link active rounded-pill" 
+                 [class.active]="activeTab === 'overview'" 
+                 (click)="setActiveTab('overview')" 
+                 href="javascript:void(0)">
+                <i class="fa fa-eye me-2"></i>Overview
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link rounded-pill" 
+                 [class.active]="activeTab === 'features'" 
+                 (click)="setActiveTab('features')" 
+                 href="javascript:void(0)">
+                <i class="fa fa-star me-2"></i>Features
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link rounded-pill" 
+                 [class.active]="activeTab === 'booking'" 
+                 (click)="setActiveTab('booking')" 
+                 href="javascript:void(0)">
+                <i class="fa fa-ticket me-2"></i>How to Book
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link rounded-pill" 
+                 [class.active]="activeTab === 'support'" 
+                 (click)="setActiveTab('support')" 
+                 href="javascript:void(0)">
+                <i class="fa fa-support me-2"></i>Support
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <!-- Tab Content -->
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          
+          <!-- Overview Tab -->
+          <div *ngIf="activeTab === 'overview'" class="fade-in">
+            <div class="card border-0 shadow-lg mb-4">
+              <div class="card-body p-5">
+                <h2 class="text-primary mb-4">
+                  <i class="fa fa-info-circle me-3"></i>About BusBooking
+                </h2>
+                <p class="lead mb-4">BusBooking is India's leading online bus ticket booking platform, connecting millions of travelers to their destinations safely and comfortably.</p>
+                
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="flex-shrink-0">
+                        <div class="bg-primary bg-opacity-10 rounded-circle p-3">
+                          <i class="fa fa-map-marker text-primary fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h5>Extensive Network</h5>
+                        <p class="text-muted">Over 1000+ destinations across India with 5000+ buses operating daily through our trusted partner network.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="flex-shrink-0">
+                        <div class="bg-success bg-opacity-10 rounded-circle p-3">
+                          <i class="fa fa-users text-success fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h5>Trusted by Millions</h5>
+                        <p class="text-muted">Over 10 million happy customers have booked their bus tickets through our platform since 2015.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="flex-shrink-0">
+                        <div class="bg-info bg-opacity-10 rounded-circle p-3">
+                          <i class="fa fa-shield text-info fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h5>Safety First</h5>
+                        <p class="text-muted">All our partner buses are GPS-enabled with verified drivers and regular safety inspections.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="flex-shrink-0">
+                        <div class="bg-warning bg-opacity-10 rounded-circle p-3">
+                          <i class="fa fa-trophy text-warning fa-2x"></i>
+                        </div>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h5>Award Winning</h5>
+                        <p class="text-muted">Winner of "Best Travel Platform 2024" and rated 4.5+ stars by users across app stores.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Features Tab -->
+          <div *ngIf="activeTab === 'features'" class="fade-in">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                  <div class="card-body p-4">
+                    <div class="text-center mb-3">
+                      <i class="fa fa-mobile text-primary fa-3x"></i>
+                    </div>
+                    <h5 class="text-center mb-3">Mobile App</h5>
+                    <ul class="list-unstyled">
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Easy booking interface</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Offline ticket access</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Push notifications</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Quick cancellation</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                  <div class="card-body p-4">
+                    <div class="text-center mb-3">
+                      <i class="fa fa-credit-card text-info fa-3x"></i>
+                    </div>
+                    <h5 class="text-center mb-3">Payment Options</h5>
+                    <ul class="list-unstyled">
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Credit & Debit Cards</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Net Banking</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>UPI & Wallets</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>EMI Options</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                  <div class="card-body p-4">
+                    <div class="text-center mb-3">
+                      <i class="fa fa-map text-warning fa-3x"></i>
+                    </div>
+                    <h5 class="text-center mb-3">Live Tracking</h5>
+                    <ul class="list-unstyled">
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Real-time bus location</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>ETA updates</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Route information</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Delay notifications</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card border-0 shadow h-100">
+                  <div class="card-body p-4">
+                    <div class="text-center mb-3">
+                      <i class="fa fa-star text-danger fa-3x"></i>
+                    </div>
+                    <h5 class="text-center mb-3">Premium Services</h5>
+                    <ul class="list-unstyled">
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Seat selection</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Meal booking</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Travel insurance</li>
+                      <li class="mb-2"><i class="fa fa-check text-success me-2"></i>Priority support</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- How to Book Tab -->
+          <div *ngIf="activeTab === 'booking'" class="fade-in">
+            <div class="card border-0 shadow-lg">
+              <div class="card-body p-5">
+                <h2 class="text-primary mb-4">
+                  <i class="fa fa-ticket me-3"></i>How to Book Your Bus Ticket
+                </h2>
+                
+                <div class="row">
+                  <div class="col-lg-8 mx-auto">
+                    <div class="step-container">
+                      <div class="step-item d-flex align-items-start mb-4" *ngFor="let step of bookingSteps; let i = index">
+                        <div class="step-number">
+                          <span class="badge bg-primary rounded-circle p-3 fs-5">{{i + 1}}</span>
+                        </div>
+                        <div class="step-content ms-4">
+                          <h5 class="mb-2">{{step.title}}</h5>
+                          <p class="text-muted mb-2">{{step.description}}</p>
+                          <small class="text-primary">
+                            <i class="fa fa-clock-o me-1"></i>{{step.time}}
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                      <button class="btn btn-primary btn-lg px-5" (click)="startBooking()">
+                        <i class="fa fa-arrow-right me-2"></i>Start Booking Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Support Tab -->
+          <div *ngIf="activeTab === 'support'" class="fade-in">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="card border-0 shadow-lg h-100">
+                  <div class="card-body p-4 text-center">
+                    <i class="fa fa-phone text-primary fa-3x mb-3"></i>
+                    <h5>24/7 Phone Support</h5>
+                    <p class="text-muted">Call us anytime for immediate assistance</p>
+                    <a href="tel:+911800123456" class="btn btn-outline-primary">
+                      <i class="fa fa-phone me-2"></i>+91 1800-123-456
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card border-0 shadow-lg h-100">
+                  <div class="card-body p-4 text-center">
+                    <i class="fa fa-comments text-success fa-3x mb-3"></i>
+                    <h5>Live Chat</h5>
+                    <p class="text-muted">Chat with our support team in real-time</p>
+                    <button class="btn btn-outline-success" (click)="openChat()">
+                      <i class="fa fa-comments me-2"></i>Start Chat
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card border-0 shadow-lg h-100">
+                  <div class="card-body p-4 text-center">
+                    <i class="fa fa-envelope text-info fa-3x mb-3"></i>
+                    <h5>Email Support</h5>
+                    <p class="text-muted">Send us your queries via email</p>
+                    <a href="mailto:support@busbooking.com" class="btn btn-outline-info">
+                      <i class="fa fa-envelope me-2"></i>supportbusbooking.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card border-0 shadow-lg h-100">
+                  <div class="card-body p-4 text-center">
+                    <i class="fa fa-question-circle text-warning fa-3x mb-3"></i>
+                    <h5>FAQ</h5>
+                    <p class="text-muted">Find answers to common questions</p>
+                    <button class="btn btn-outline-warning" (click)="openFAQ()">
+                      <i class="fa fa-question-circle me-2"></i>View FAQ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Quick Help Section -->
+            <div class="card border-0 shadow-lg mt-4">
+              <div class="card-body p-4">
+                <h5 class="mb-3">
+                  <i class="fa fa-lightbulb-o text-warning me-2"></i>Quick Help Topics
+                </h5>
+                <div class="row">
+                  <div class="col-md-6">
+                    <ul class="list-unstyled">
+                      <li class="mb-2">
+                        <a href="javascript:void(0)" class="text-decoration-none" (click)="openHelp('cancellation')">
+                          <i class="fa fa-arrow-right text-primary me-2"></i>How to cancel tickets?
+                        </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="javascript:void(0)" class="text-decoration-none" (click)="openHelp('refund')">
+                          <i class="fa fa-arrow-right text-primary me-2"></i>Refund policy
+                        </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="javascript:void(0)" class="text-decoration-none" (click)="openHelp('payment')">
+                          <i class="fa fa-arrow-right text-primary me-2"></i>Payment issues
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <ul class="list-unstyled">
+                      <li class="mb-2">
+                        <a href="javascript:void(0)" class="text-decoration-none" (click)="openHelp('booking')">
+                          <i class="fa fa-arrow-right text-primary me-2"></i>Booking problems
+                        </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="javascript:void(0)" class="text-decoration-none" (click)="openHelp('account')">
+                          <i class="fa fa-arrow-right text-primary me-2"></i>Account issues
+                        </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="javascript:void(0)" class="text-decoration-none" (click)="openHelp('mobile')">
+                          <i class="fa fa-arrow-right text-primary me-2"></i>Mobile app help
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Back to Home Button -->
+      <div class="row justify-content-center mt-5">
+        <div class="col-lg-10 text-center">
+          <button class="btn btn-outline-primary btn-lg px-5" (click)="goBack()">
+            <i class="fa fa-arrow-left me-2"></i>Back to Home
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

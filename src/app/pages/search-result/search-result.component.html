@@ -1,0 +1,44 @@
+<div class="header-controls">
+    <h4>Available Buses</h4>
+    <div>
+      <button class="btn btn-outline-primary">Filter</button>
+      <button class="btn btn-outline-primary">Sort</button>
+    </div>
+  </div>
+
+  <div class="bus-card">
+    @for (item of searchData; track $index) {
+
+        <div class="bus-info">
+            <h5><i class="fas fa-bus"></i> {{item.busName}}</h5>
+            <p><i class="fas fa-bed"></i> AC Sleeper</p>
+            <div class="tags">
+              <span class="tag"><i class="fas fa-star"></i> 4.3</span>
+              <span class="tag blue">Fast</span>
+            </div>
+          </div>
+      
+          <div class="bus-meta">
+            <div>
+              <div><i class="far fa-clock"></i> Departure</div>
+              <strong>{{item.departureTime | date:'hh:mm:ss'}}</strong>
+            </div>
+            <div>
+              <div><i class="fas fa-hourglass-half"></i> Duration</div>
+              <strong>6h 30m</strong>
+            </div>
+            <div>
+              <div><i class="far fa-clock"></i> Arrival</div>
+              <strong>{{item.arrivalTime | date:'hh:mm:ss'}}</strong>
+            </div>
+          </div>
+      
+          <div class="bus-price">
+            <div class="price"><i class="fas fa-indian-rupee-sign"></i> {{item.price}}</div>
+            <div class="best">$ Best Price</div>
+          </div>
+      
+          <button class="btn-view" [routerLink]="'/book-ticket/'+ item.scheduleId"><i class="fas fa-arrow-right"></i></button>
+    }
+
+  </div>

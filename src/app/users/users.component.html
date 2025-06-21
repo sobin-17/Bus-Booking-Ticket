@@ -1,0 +1,103 @@
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="h3 mb-0">
+            <i class="fa fa-users me-2"></i>All Users
+          </h2>
+          <button class="btn btn-primary" (click)="loadUsers()">
+            <i class="fa fa-refresh me-2"></i>Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2 text-muted">Loading users...</p>
+    </div>
+  
+    <!-- Alert Messages -->
+    <div *ngIf="alertMessage" class="alert" [class.alert-success]="alertType === 'success'" [class.alert-danger]="alertType === 'error'">
+      {{ alertMessage }}
+    </div>
+  
+    <!-- Users Grid -->
+    <div *ngIf="!isLoading" class="row g-4">
+      <div class="col-xl-4 col-md-6" *ngFor="let user of users">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <div class="flex-shrink-0">
+                <div class="avatar bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                  <i class="fa fa-user"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h5 class="card-title mb-0">{{ user.fullName || user.userName }}</h5>
+                <small class="text-muted">{{ user.role | titlecase }}</small>
+              </div>
+            </div>
+            
+            <div class="user-details">
+              <div class="mb-2">
+                <strong>Username:</strong> {{ user.userName }}
+              </div>
+              <div class="mb-2">
+                <strong>Email:</strong> {{ user.emailId || 'Not provided' }}
+              </div>
+              <div class="mb-2">
+                <strong>Project:</strong> {{ user.projectName || 'N/A' }}
+              </div>
+              <div class="mb-2">
+                <strong>Created:</strong> {{ formatDate(user.createdDate) }}
+              </div>
+            </div>
+            
+            <div class="mt-3 d-flex justify-content-between align-items-center">
+              <span class="badge" 
+                    [class.bg-success]="user.role === 'admin'" 
+                    [class.bg-primary]="user.role === 'customer'"
+                    [class.bg-warning]="user.role === 'driver'"
+                    [class.bg-info]="user.role === 'operator'"
+                    [class.bg-secondary]="!['admin', 'customer', 'driver', 'operator'].includes(user.role)">
+                {{ user.role | titlecase }}
+              </span>
+              
+              <!-- Action Buttons -->
+              <div class="btn-group btn-group-sm">
+                <button class="btn btn-outline-primary btn-sm" 
+                        title="View Details"
+                        (click)="viewUser(user)">
+                  <i class="fa fa-eye"></i>
+                </button>
+                <button class="btn btn-outline-warning btn-sm" 
+                        title="Edit User"
+                        (click)="editUser(user)">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" 
+                        title="Delete User"
+                        (click)="deleteUser(user)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && users.length === 0" class="text-center py-5">
+      <i class="fa fa-users fa-4x text-muted mb-3"></i>
+      <h4 class="text-muted">No Users Found</h4>
+      <p class="text-muted">There are no users registered in the system yet.</p>
+      <button class="btn btn-primary" (click)="loadUsers()">
+        <i class="fa fa-refresh me-2"></i>Try Again
+      </button>
+    </div>
+  </div>

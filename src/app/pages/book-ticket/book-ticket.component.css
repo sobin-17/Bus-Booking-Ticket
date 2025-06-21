@@ -1,0 +1,184 @@
+
+/* Success Animation Styles */
+.success-animation {
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+}
+
+.success-checkmark {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 2;
+    stroke: #4CAF50;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px #4CAF50;
+    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    position: relative;
+}
+
+.success-checkmark .icon-circle {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid #4CAF50;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.success-checkmark .icon-line {
+    position: absolute;
+    height: 2px;
+    background: #4CAF50;
+    display: block;
+    border-radius: 2px;
+}
+
+.success-checkmark .icon-line.line-tip {
+    top: 46px;
+    left: 14px;
+    width: 25px;
+    transform: rotate(45deg);
+    animation: stroke-tip 0.2s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+.success-checkmark .icon-line.line-long {
+    top: 38px;
+    right: 8px;
+    width: 47px;
+    transform: rotate(-45deg);
+    animation: stroke-long 0.2s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes scale {
+    0%, 100% {
+        transform: none;
+    }
+    50% {
+        transform: scale3d(1.1, 1.1, 1);
+    }
+}
+
+@keyframes fill {
+    100% {
+        box-shadow: inset 0px 0px 0px 60px #4CAF50;
+    }
+}
+
+@keyframes stroke-tip {
+    0% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+    54% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+    70% {
+        width: 50px;
+        left: -8px;
+        top: 37px;
+    }
+    84% {
+        width: 17px;
+        left: 21px;
+        top: 48px;
+    }
+    100% {
+        width: 25px;
+        left: 14px;
+        top: 45px;
+    }
+}
+
+@keyframes stroke-long {
+    0% {
+        width: 0;
+        right: 20px;
+        top: 54px;
+    }
+    65% {
+        width: 0;
+        right: 20px;
+        top: 54px;
+    }
+    84% {
+        width: 55px;
+        right: 0px;
+        top: 35px;
+    }
+    100% {
+        width: 47px;
+        right: 8px;
+        top: 38px;
+    }
+}
+
+/* Additional Styles */
+.booking-success-details {
+    border-left: 4px solid #28a745;
+}
+
+.modal.show {
+    display: block !important;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    margin: 2px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+}
+
+.seat.available:hover {
+    background: #e3f2fd;
+}
+
+.seat.selected {
+    background: #2196f3 !important;
+    color: white;
+}
+
+.seat.booked {
+    background: #6c757d;
+    color: white;
+    cursor: not-allowed;
+}
+.home-button {
+    background-color: #6c5ce7; /* violet */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .home-button i {
+    pointer-events: none; /* Ensures clicking the icon still routes */
+  }
+  
+  .home-button:hover {
+    background-color: #5a4bcf;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .home-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  
